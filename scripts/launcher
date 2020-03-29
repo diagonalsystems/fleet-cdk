@@ -1,0 +1,20 @@
+#!/bin/sh
+
+host=fleet.acme.net
+port=443
+root_dir=/var/fleet
+
+function build() {
+  export KOLIDE_LAUNCHER_ENROLL_SECRET=$1 && \
+  make deps && \
+  make launcher && \
+  ./build/launcher \
+    --hostname="$host:$port" \
+    --root_directory="$root_dir"
+}
+
+function run() {
+  launcher \
+    --hostname="$host:$port" \
+    --root_directory="$root_dir"
+}

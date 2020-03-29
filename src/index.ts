@@ -4,6 +4,6 @@ export interface FleetProps {
   
 }
 
-export default function createFleet (scope: Construct, props: FleetProps) {
-  const stack = new Stack(scope, 'Fleet', {})
+export default function fleet (scope: Construct, props: FleetProps) {
+  
 }

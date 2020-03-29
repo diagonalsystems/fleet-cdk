@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# By default, binaries will be installed to /usr/local/launcher/bin, 
+# configuration will be installed to /etc/launcher, logs will be outputted to 
+# /var/log/launcher, etc. If you'd like the launcher string to be something
+# else (for example, your company name), you can use the --identifier flag to
+# specify this value.
+
+host=grpc.launcher.example.com
+port=443
+enroll_secret=$1
+identifier=$2
+
+./build/package-builder make \
+  --hostname="$host:$port" \
+  --enroll_secret=$enroll_secret \
+  --identifier=$2
