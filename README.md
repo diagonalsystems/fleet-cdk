@@ -1,5 +1,7 @@
 # fleet-cdk
 
+(WIP)
+
 Install Kolide Fleet in an AWS account using the CDK.
 
 ## Installation
@@ -37,12 +39,23 @@ These can be either passed as a dependency or provisioned by this library.
 ## Components
 
 1. IAM Roles & Policies
-1. MySQL Database
-1. Network Load Balancer
-1. Fleet Service
-1. Redis
+1. RDS MySQL Instance
+1. ELB Network Load Balancer
+1. ECS Service
+1. Elasticache Redis
+
+# Ideas
+
+- File integrity monitoring (FIM)
+- IOC (indicator of compromise) intrusion detection 
+  - (IPs, domains, ports, file names/paths/hashes, …)
+- State-based intrusion detection 
+  - (shell history, /etc/hosts, NFS shares, firewall settings, …)
+- Flexible remote logging
+- Syslog collection
 
 ## Reference
 
+- [osquery Documentation](https://osquery.readthedocs.io/en/stable/)
 - [Fleet Documentation](https://github.com/kolide/fleet/tree/master/docs)
 

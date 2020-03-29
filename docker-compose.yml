@@ -26,6 +26,7 @@ services:
     volumes:
       - .:/fleet/
       - fleet_logs:/logs
+      - ./certs/fleet.crt:/fleet/osquery/fleet.crt
     ports:
       - "8412:8412"
     environment:
