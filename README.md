@@ -58,4 +58,4 @@ These can be either passed as a dependency or provisioned by this library.
 
 - [osquery Documentation](https://osquery.readthedocs.io/en/stable/)
 - [Fleet Documentation](https://github.com/kolide/fleet/tree/master/docs)
-
+- [dactivllc/osquery-in-a-box](https://github.com/dactivllc/osquery-in-a-box)

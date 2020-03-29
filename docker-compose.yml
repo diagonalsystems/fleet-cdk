@@ -2,31 +2,31 @@ version: '3.7'
 
 services:
 
-  ubuntu18-osquery:
+  osquery:
     image: "dactiv/osquery:4.1.2-ubuntu18.04"
+    command:
+      - osqueryd 
+      - --flagfile=/etc/osquery/osquery.flags 
+      - --tls_hostname=${fleet-host.docker.internal:8412}
     volumes:
-      - ./fleet.crt:/etc/osquery/fleet.crt
-      - ./example_osquery.flags:/etc/osquery/osquery.flags
+      - ./files/osquery.flags:/etc/osquery/osquery.flags
+      - ./files/fleet.crt:/etc/osquery/fleet.crt
     environment:
-      ENROLL_SECRET: "${ENROLL_SECRET:?ENROLL_SECRET must be set for server authentication}"
-    command: osqueryd --flagfile=/etc/osquery/osquery.flags --tls_hostname=${FLEET_SERVER-host.docker.internal:8412}
-    ulimits:
-      core:
-        hard:  1000000000
-        soft:  1000000000
+      ENROLL_SECRET: enroll
 
   fleet:
     image: kolide/fleet:latest
-    ports:
-      - 443:443
-    command: sh -c "/usr/bin/fleet prepare db --no-prompt && /usr/bin/fleet serve"
+    command: 
+      - sh 
+      - -c 
+      - "/usr/bin/fleet prepare db --no-prompt && /usr/bin/fleet serve"
     depends_on:
       - mysql
       - redis
     volumes:
-      - .:/fleet/
-      - fleet_logs:/logs
-      - ./certs/fleet.crt:/fleet/osquery/fleet.crt
+      - ./data/fleet_logs:/logs
+      - ./files/fleet.crt:/fleet/osquery/fleet.crt
+      - ./files/fleet.key:/fleet/osquery/fleet.key
     ports:
       - "8412:8412"
     environment:
@@ -54,7 +54,13 @@ services:
     image: mysql:5.7
     volumes:
       - .:/data
-    command: mysqld --datadir=/tmp/data --slow_query_log=1 --log_output=TABLE --log-queries-not-using-indexes --event-scheduler=ON
+    command: 
+      - mysqld 
+      - --datadir=/tmp/data
+      - --slow_query_log=1
+      - --log_output=TABLE
+      - --log-queries-not-using-indexes
+      - --event-scheduler=ON
     environment:
       MYSQL_ROOT_PASSWORD: toor
       MYSQL_DATABASE: fleet
@@ -62,9 +68,3 @@ services:
       MYSQL_PASSWORD: fleet
     ports:
       - "3306:3306"
-
-volumes:
-  data:
-    driver: local
-  fleet_logs:
-    driver: local

@@ -9,11 +9,18 @@ const MYSQL_MASTER_USERNAME = 'mysql_admin';
 const MYSQL_STORAGE_GB = 30;
 const REDIS_NODE_TYPE = 'cache.t2.micro';
 
-export interface FleetStorageProps {
-  vpc: ec2.IVpc
+interface Props {
+  vpc: ec2.IVpc;
 }
 
-export default function createFleetStorage(scope: Construct, props: FleetStorageProps) {
+interface ResourceMap {
+  mysql: rds.DatabaseInstance;
+  mysqlSg: ec2.SecurityGroup;
+  redis: elasticache.CfnCacheCluster;
+  redisSg: ec2.SecurityGroup;
+}
+
+function createFleetStorage(scope: Construct, props: Props): ResourceMap {
   const stack = new Stack(scope, 'FleetStorage', {});
   const { vpc } = props;
 
@@ -70,3 +77,5 @@ export default function createFleetStorage(scope: Construct, props: FleetStorage
     redisSg,
   };
 }
+
+export default createFleetStorage;

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+FILENAME=fleet
+
+mkdir -p certs && \
+cd certs && \
+# key
+openssl genrsa -out "$FILENAME.key" 4096 && \
+# signing request
+openssl req \
+  -new -key "$FILENAME.key" \
+  -out "$FILENAME.csr" -sha256 \
+  -subj '/CN=fleet-cdk' && \
+# cert
+openssl x509 \
+  -signkey "$FILENAME.key" \
+  -in "$FILENAME.csr" \
+  -req -days 3650 -out "$FILENAME.crt"
