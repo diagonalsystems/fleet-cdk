@@ -4,8 +4,16 @@
     "node": true
   },
   "extends": [
-    "airbnb"
+    "airbnb-base"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".ts"]
+      }
+    }
+  },
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -15,6 +23,7 @@
     "ecmaVersion": 2018
   },
   "plugins": [
+    "import",
     "@typescript-eslint"
   ],
   "rules": {

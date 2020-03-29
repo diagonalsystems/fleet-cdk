@@ -20,8 +20,6 @@
   },
   "homepage": "https://github.com/diagonalsystems/fleet-cdk#readme",
   "devDependencies": {
-    "@aws-cdk/aws-elasticache": "^1.31.0",
-    "@aws-cdk/core": "^1.31.0",
     "@types/node": "^13.9.5",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
@@ -34,11 +32,16 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@aws-cdk/aws-certificatemanager": "^1.31.0",
+    "@aws-cdk/aws-ec2": "^1.31.0",
     "@aws-cdk/aws-ecs": "^1.31.0",
+    "@aws-cdk/aws-elasticache": "^1.31.0",
+    "@aws-cdk/aws-elasticloadbalancingv2": "^1.31.0",
     "@aws-cdk/aws-iam": "^1.31.0",
     "@aws-cdk/aws-rds": "^1.31.0",
     "@aws-cdk/aws-route53": "^1.31.0",
     "@aws-cdk/aws-secretsmanager": "^1.31.0",
+    "@aws-cdk/core": "^1.31.0",
     "cdk-constants": "^3.0.3"
   }
 }
