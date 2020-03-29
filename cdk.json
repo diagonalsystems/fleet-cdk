@@ -1,0 +1,3 @@
+{
+  "app": "TS_NODE_FILES=true ts-node src/app.ts"
+}
