@@ -5,7 +5,7 @@ import { HostedZone } from '@aws-cdk/aws-route53';
 import createFleet from '../src';
 
 const app = new App();
-const stack = new Stack(app, 'FleetDeps');
+const stack = new Stack(app, 'FleetTestDependencies');
 
 createFleet(app, {
   dependencies: {

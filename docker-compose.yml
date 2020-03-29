@@ -12,7 +12,7 @@ services:
       - ./files/osquery.flags:/etc/osquery/osquery.flags
       - ./files/fleet.crt:/etc/osquery/fleet.crt
     environment:
-      ENROLL_SECRET: enroll
+      - ENROLL_SECRET
 
   fleet:
     image: kolide/fleet:latest
@@ -30,6 +30,7 @@ services:
     ports:
       - "8412:8412"
     environment:
+      ENROLL_SECRET: enroll
       KOLIDE_MYSQL_ADDRESS: mysql:3306
       KOLIDE_MYSQL_DATABASE: fleet
       KOLIDE_MYSQL_USERNAME: fleet

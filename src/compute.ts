@@ -8,6 +8,7 @@ import * as ec2 from '@aws-cdk/aws-ec2';
 const MYSQL_PASSWORD_SECRET_NAME = '/fleet/mysql';
 const JWT_SECRET_NAME = '/fleet/jwt';
 const STREAM_PREFIX = 'fleet';
+const SERVICE_PORT = 8412;
 const HEALTHCHECK_PORT = '3000';
 
 interface Props {
@@ -62,7 +63,7 @@ function createFleetCompute(scope: Construct, props: Props): ResourceMap {
       KOLIDE_MYSQL_ADDRESS: mysqlUrl,
       KOLIDE_MYSQL_DATABASE: 'fleet',
       KOLIDE_MYSQL_USERNAME: 'fleet',
-      KOLIDE_SERVER_ADDRESS: '0.0.0.0:8080',
+      KOLIDE_SERVER_ADDRESS: `0.0.0.0:${SERVICE_PORT}`,
       KOLIDE_SERVER_TLS: 'false',
       KOLIDE_LOGGING_DEBUG: 'true',
       KOLIDE_REDIS_ADDRESS: redisUrl,
@@ -70,7 +71,7 @@ function createFleetCompute(scope: Construct, props: Props): ResourceMap {
   });
 
   containerDefinition.addPortMappings(...[{
-    containerPort: 8080,
+    containerPort: SERVICE_PORT,
   }]);
 
   const healthCheckContainer = new ecs.ContainerDefinition(stack, 'HealthcheckContainer', {
